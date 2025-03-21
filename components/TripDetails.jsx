@@ -5,6 +5,9 @@ import { motion } from "framer-motion"; // For animations
 import { FaMapMarkerAlt, FaClock, FaRoute, FaInfoCircle, FaCalendarDay, FaTimes } from "react-icons/fa"; // For icons
 import Sidebar from "./Sidebar"; // Import the Sidebar component
 
+
+const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+
 const TripDetails = () => {
   const { tripId } = useParams();
   const navigate = useNavigate();
@@ -25,7 +28,7 @@ const TripDetails = () => {
   useEffect(() => {
     const fetchTrip = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/trips/${tripId}`);
+        const response = await fetch(`${API_URL}/api/trips/${tripId}`);
         if (response.ok) {
           const data = await response.json();
           console.log("Trip data:", data);
@@ -40,7 +43,7 @@ const TripDetails = () => {
 
     const fetchLogEntries = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/trips/${tripId}/log-entries/`);
+        const response = await fetch(`${API_URL}/api/trips/${tripId}/log-entries/`);
         if (response.ok) {
           const data = await response.json();
           console.log("Log entries:", data);
@@ -120,7 +123,7 @@ const TripDetails = () => {
     try {
       console.log("Saving log entry:", logEntryData);
       // Send the log entry to the backend
-      const response = await fetch("http://127.0.0.1:8000/api/log-entries/", {
+      const response = await fetch(`${API_URL}/api/log-entries/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

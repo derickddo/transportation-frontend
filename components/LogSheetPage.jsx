@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { motion } from 'framer-motion';
 
+const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+
 // Log Sheet Component
 const LogSheetPage = () => {
   const [tripData, setTripData] = useState(null);
@@ -205,7 +207,7 @@ const LogSheetPage = () => {
         setError(null);
         chartDrawn.current = false; // Reset chart drawn state on new fetch
 
-        const response = await fetch(`http://127.0.0.1:8000/api/trips/${tripId || 11}`);
+        const response = await fetch(`${API_URL}/api/trips/${tripId || 11}`);
         if (!response.ok) {
           throw new Error(`Failed to fetch trip data: ${response.statusText}`);
         }
@@ -228,7 +230,7 @@ const LogSheetPage = () => {
   useEffect(() => {
     const fetchLogEntries = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/trips/${tripId}/log-entries`);
+        const response = await fetch(`${API_URL}/api/trips/${tripId}/log-entries`);
         if (!response.ok) {
           throw new Error(`Failed to fetch log entries: ${response.statusText}`);
         }

@@ -9,4 +9,7 @@ export default defineConfig({
     react(),
     
   ],
+  build: {
+    outDir: 'dist', // Ensure the output directory is 'dist' (Vercel expects this)
+  },
 })

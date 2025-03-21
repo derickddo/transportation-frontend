@@ -4,6 +4,8 @@ import { FaTruckMoving, FaSpinner, FaExclamationCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"; // For animations
 
+const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+
 const TripForm = () => {
   const [currentLocation, setCurrentLocation] = useState(null);
   const [pickup, setPickup] = useState(null);
@@ -24,7 +26,7 @@ const TripForm = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/trips", {
+      const response = await fetch(`${API_URL}/api/trips`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
