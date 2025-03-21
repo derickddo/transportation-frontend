@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+
+@theme {
+    --default-font-family:  "Rubik", serif;
+    --vercel-black: #000000,
+    --vercel-gray: #ffffffb3,
+    --vercel-dark-gray: #1a1a1a,
+    --vercel-border-gray: #333,
+}
