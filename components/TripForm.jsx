@@ -15,6 +15,79 @@ const TripForm = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  // Function to parse location data into the required format
+  const parseLocation = (location) => {
+    if (!location) return null;
+
+    // If location is already in the correct format
+    if (
+      typeof location === "object" &&
+      location.name &&
+      typeof location.latitude === "number" &&
+      typeof location.longitude === "number"
+    ) {
+      return {
+        name: location.name,
+        latitude: location.latitude,
+        longitude: location.longitude,
+      };
+    }
+
+    // If location is an object with value, lat, and lng (common format for search components)
+    if (
+      typeof location === "object" &&
+      location.value &&
+      typeof location.lat === "number" &&
+      typeof location.lng === "number"
+    ) {
+      return {
+        name: location.value,
+        latitude: location.lat,
+        longitude: location.lng,
+      };
+    }
+
+    // If location is an object with label and coordinates
+    if (
+      typeof location === "object" &&
+      location.label &&
+      location.coordinates &&
+      typeof location.coordinates.lat === "number" &&
+      typeof location.coordinates.lng === "number"
+    ) {
+      return {
+        name: location.label,
+        latitude: location.coordinates.lat,
+        longitude: location.coordinates.lng,
+      };
+    }
+
+    // If location is a string in the format "Location Name (latitude, longitude)"
+    if (typeof location === "string") {
+      const match = location.match(/^(.*)\s*\((-?\d+\.\d+),\s*(-?\d+\.\d+)\)$/);
+      if (match) {
+        return {
+          name: match[1].trim(),
+          latitude: parseFloat(match[2]),
+          longitude: parseFloat(match[3]),
+        };
+      }
+      // Fallback for string without coordinates
+      return {
+        name: location,
+        latitude: null,
+        longitude: null,
+      };
+    }
+
+    // If the format is unrecognized, return null values for coordinates
+    return {
+      name: location.toString(),
+      latitude: null,
+      longitude: null,
+    };
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -24,14 +97,28 @@ const TripForm = () => {
       return;
     }
 
+    // Log the raw values for debugging
+    console.log("Raw pickup:", pickup);
+    console.log("Raw dropoff:", dropoff);
+
+    // Parse the location data
+    const parsedPickup = parseLocation(pickup);
+    const parsedDropoff = parseLocation(dropoff);
+
+    // Validate that coordinates are present
+    if (!parsedPickup.latitude || !parsedPickup.longitude || !parsedDropoff.latitude || !parsedDropoff.longitude) {
+      setError("Please select locations with valid coordinates.");
+      return;
+    }
+
     setIsLoading(true);
     try {
       const response = await fetch(`${API_URL}/api/trips`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          pickup_location: pickup,
-          dropoff_location: dropoff,
+          pickup_location: parsedPickup,
+          dropoff_location: parsedDropoff,
           cycle_used: cycleUsed,
         }),
       });
