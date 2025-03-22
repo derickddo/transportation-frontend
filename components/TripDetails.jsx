@@ -123,7 +123,7 @@ const TripDetails = () => {
     try {
       console.log("Saving log entry:", logEntryData);
       // Send the log entry to the backend
-      const response = await fetch(`${API_URL}/api/log-entries/`, {
+      const response = await fetch(`${API_URL}/api/log-entries`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
