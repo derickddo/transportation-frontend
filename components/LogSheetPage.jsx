@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { motion } from 'framer-motion';
 
-const API_URL = "/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
 // Log Sheet Component
 const LogSheetPage = () => {
