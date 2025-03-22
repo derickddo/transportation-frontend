@@ -286,13 +286,13 @@ const TripDetails = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
+                  className="px-4 py-2 cursor-pointer bg-gray-600 text-white rounded-lg hover:bg-gray-700"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                  className="px-4 py-2 cursor-pointer bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                 >
                   Submit
                 </button>
@@ -322,7 +322,7 @@ const TripDetails = () => {
             <div>
               <button
                 onClick={handleButtonClick}
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300"
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300 cursor-pointer"
               >
                 {hasLogEntry ? "View Log Entry" : "Create a Log Entry"}
               </button>

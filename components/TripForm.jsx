@@ -205,7 +205,7 @@ const TripForm = () => {
             disabled={isLoading}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`w-full p-3 rounded-xl text-white font-semibold flex items-center justify-center transition-all duration-300 ${
+            className={`w-full p-3 cursor-pointer rounded-xl text-white font-semibold flex items-center justify-center transition-all duration-300 ${
               isLoading
                 ? "bg-blue-600/50 cursor-not-allowed"
                 : "bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"

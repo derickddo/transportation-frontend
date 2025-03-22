@@ -90,7 +90,7 @@ const LocationSearchDropdown = ({ label, onSelect, placeholder }) => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="absolute w-full bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg max-h-48 overflow-y-auto z-20 mt-2 rounded-xl custom-scrollbar"
+          className="absolute w-full bg-gray-500 backdrop-blur-lg border border-white/20 shadow-lg max-h-48 overflow-y-auto z-20 mt-2 rounded-xl custom-scrollbar"
         >
           {locations.length > 0 ? (
             locations.map((location, index) => (
